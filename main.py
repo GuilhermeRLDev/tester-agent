@@ -9,10 +9,11 @@ def main():
     print("🔍 Collecting git diff...")
     diffs = get_changed_files()
 
-    graph = get_execution_graph("/home/workspace/mistral-quant/OpenBanking4All/PSD2Authentication/analysis")
-
+    graph = get_execution_graph("/home/workspace/mistral-quant/OpenBanking4All/analysis")
+    
     for file, diff in diffs.items():
         print(f"Processing {file}...")
+        print(diff)
         units = extract_units(file, diff)
         
         print(f"Found {len(units)} units to test in {file}.")
@@ -20,8 +21,8 @@ def main():
         for unit in units:
             prompt = build_prompt(unit, graph)
             print(prompt)
-            #test_code = generate_test(prompt)
-            #write_tests(unit, test_code)
+            test_code = generate_test(prompt)
+            write_tests(unit, test_code)
 
 if __name__ == "__main__":
     main()

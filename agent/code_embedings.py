@@ -121,7 +121,7 @@ def get_dependency_tree_for_method(method, graph):
             if c not in calls and c in graph:
                 calls[c] = {
                         "file": graph[c]["file"],
-                        "method": get_methods_per_class_from_file(graph[c]["file"])[implementation]
+                        "method": get_methods_per_class_from_file(graph[c]["file"])[c]
                     }
                 
         for sf in child_call["side_effects"]:

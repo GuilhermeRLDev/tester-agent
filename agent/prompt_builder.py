@@ -14,7 +14,7 @@ def retrieve_code_context(unit, graph):
 
     # Get the code for the method
     method_code = get_dependency_tree_for_method(f"{namespace}.{class_name}.{method_name}", graph)
-
+    
     if not method_code:
         return f"Method {method_name} not found in the graph."
 
@@ -31,6 +31,7 @@ def retrieve_context(unit):
     return "No existing tests found."
 
 def build_prompt(unit, graph, existing_tests="None encountered"):
+    print(f"Building prompt for unit: {unit['class']}.{unit['method']}")
     return f"""
 You are an AI generating XUnit tests in C#.
 Use Arrange-Act-Assert pattern, and Moq for dependencies.
@@ -53,4 +54,5 @@ Similar unit tests:
 2- Refactor class existing clas to include method or write a new class if it does not exist.
 4- Refactor existing tests in case change requires it
 5- Pay attention to the class and methods block should be valid C# code.
+5- Make use you include all necessary using statements.
 """
